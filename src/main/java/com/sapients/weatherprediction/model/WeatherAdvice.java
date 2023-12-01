@@ -12,5 +12,5 @@ import java.util.List;
 public class WeatherAdvice {
 
     private String info;
-    private List<String> time;
+    private String time;
 }

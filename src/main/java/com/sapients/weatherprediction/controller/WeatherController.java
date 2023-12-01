@@ -1,16 +1,11 @@
 package com.sapients.weatherprediction.controller;
 
-import com.sapients.weatherprediction.model.TemperatureInfo;
-import com.sapients.weatherprediction.model.WeatherApiResponse;
-import com.sapients.weatherprediction.model.WeatherPredictor;
 import com.sapients.weatherprediction.model.WeatherPredictorResponse;
 import com.sapients.weatherprediction.service.WeatherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Map;
 
 @RestController
 @RequestMapping("/weather")

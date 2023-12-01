@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TemperatureInfo implements WeatherPredictor{
+public class TemperatureInfo {
 
     private double minTemp;
     private double maxTemp;
