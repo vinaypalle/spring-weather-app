@@ -20,13 +20,14 @@ public class WeatherController {
     @Autowired
     private WeatherService weatherService;
     @GetMapping("/data")
-    public ResponseEntity<WeatherPredictorResponse> getWeatherData(@RequestParam String location, @RequestParam String appid, @RequestParam String cnt)
+    public ResponseEntity<WeatherPredictorResponse> getWeatherData(@RequestParam String location, @RequestParam String cnt,@RequestHeader String appid)
     {
         logger.info("Starting to get weather data");
         List<TemperatureInfo> temperatureInfoList = weatherService.findAll(location,appid,cnt);
         WeatherPredictorResponse weatherPredictorResponse = new WeatherPredictorResponse();
         weatherPredictorResponse.setStatus(HttpStatus.OK.value());
         weatherPredictorResponse.setData(temperatureInfoList);
+        logger.info("Completed getting the weather data");
         return new ResponseEntity<>(weatherPredictorResponse,HttpStatus.OK);
     }
 }
