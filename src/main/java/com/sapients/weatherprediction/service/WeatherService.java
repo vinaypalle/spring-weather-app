@@ -1,11 +1,9 @@
 package com.sapients.weatherprediction.service;
 
-import com.sapients.weatherprediction.controller.WeatherController;
 import com.sapients.weatherprediction.exception.ApiKeyException;
 import com.sapients.weatherprediction.exception.CityNotFoundException;
 import com.sapients.weatherprediction.exception.ServerException;
 import com.sapients.weatherprediction.exception.TooManyRequestsException;
-import com.sapients.weatherprediction.model.ErrorResponse;
 import com.sapients.weatherprediction.model.TemperatureInfo;
 import com.sapients.weatherprediction.model.WeatherApiResponse;
 import com.sapients.weatherprediction.model.WeatherData;
@@ -38,7 +36,7 @@ public class WeatherService {
     {
         logger.info("building api url");
         String uri = buildApiUrl(location,appid,cnt);
-        logger.info("complete api url building");
+        logger.info("Finished api url building");
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
@@ -50,7 +48,7 @@ public class WeatherService {
         uriVariables.put("cnt", cnt);
         ResponseEntity<WeatherApiResponse> response;
         try{
-            logger.info("sending request to openweathermap api");
+            logger.info("sending request to openweathermap");
             response = restTemplate.exchange(uri, HttpMethod.GET, requestEntity, WeatherApiResponse.class, uriVariables);
         }
         catch(HttpClientErrorException exception)
@@ -84,9 +82,9 @@ public class WeatherService {
         Map<String, List<WeatherData>> weatherMap = weatherApiResponse.getList().stream().collect(Collectors.groupingBy(weatherData->weatherData.getDtTxt().substring(0,10)));
 
         WeatherInfoInterface weatherInfo = new WeatherInfo();
-        logger.info("Starting to get weatherinfo in service class");
+        logger.info("Initializing weatherinfo model");
         List<TemperatureInfo> weatherInfoList = weatherInfo.findWeatherInfo(weatherMap);
-        logger.info("complete getting the weather info");
+        logger.info("Finished mapping weatherinfo");
         return weatherInfoList;
     }
 }

@@ -22,12 +22,12 @@ public class WeatherController {
     @GetMapping("/data")
     public ResponseEntity<WeatherPredictorResponse> getWeatherData(@RequestParam String location, @RequestParam String cnt,@RequestHeader String appid)
     {
-        logger.info("Starting to get weather data");
+        logger.info("Fetching weather details of city: {}",location);
         List<TemperatureInfo> temperatureInfoList = weatherService.findAll(location,appid,cnt);
         WeatherPredictorResponse weatherPredictorResponse = new WeatherPredictorResponse();
         weatherPredictorResponse.setStatus(HttpStatus.OK.value());
         weatherPredictorResponse.setData(temperatureInfoList);
-        logger.info("Completed getting the weather data");
+        logger.info("Finished fetching weather data");
         return new ResponseEntity<>(weatherPredictorResponse,HttpStatus.OK);
     }
 }

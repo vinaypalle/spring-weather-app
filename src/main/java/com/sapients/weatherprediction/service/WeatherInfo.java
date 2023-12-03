@@ -15,7 +15,7 @@ public class WeatherInfo implements WeatherInfoInterface {
         public List<TemperatureInfo> findWeatherInfo(Map<String, List<WeatherData>> weatherMap)
         {
             List<TemperatureInfo> temperatureInfoList = new ArrayList<>();
-            logger.info("Starting to find weather advice for each day");
+            logger.info("Preparing weather advice for each day");
             for(Map.Entry<String, List<WeatherData>> entry:weatherMap.entrySet())
             {
                 double minTemp = Double.MAX_VALUE;
@@ -54,7 +54,7 @@ public class WeatherInfo implements WeatherInfoInterface {
                 temperatureInfo.setDate(entry.getKey());
                 temperatureInfoList.add(temperatureInfo);
             }
-            logger.info("Complete getting the weather advice for each day");
+            logger.info("Finished getting the weather advice for each day");
             return temperatureInfoList;
         }
 }
