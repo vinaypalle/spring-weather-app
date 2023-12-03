@@ -3,15 +3,19 @@ package com.sapients.weatherprediction.service;
 import com.sapients.weatherprediction.model.TemperatureInfo;
 import com.sapients.weatherprediction.model.WeatherAdvice;
 import com.sapients.weatherprediction.model.WeatherData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
 public class WeatherInfo implements WeatherInfoInterface {
 
+    private static Logger logger = LoggerFactory.getLogger(WeatherInfo.class);
     @Override
         public List<TemperatureInfo> findWeatherInfo(Map<String, List<WeatherData>> weatherMap)
         {
             List<TemperatureInfo> temperatureInfoList = new ArrayList<>();
+            logger.info("Starting to find weather advice for each day");
             for(Map.Entry<String, List<WeatherData>> entry:weatherMap.entrySet())
             {
                 double minTemp = Double.MAX_VALUE;
@@ -50,6 +54,7 @@ public class WeatherInfo implements WeatherInfoInterface {
                 temperatureInfo.setDate(entry.getKey());
                 temperatureInfoList.add(temperatureInfo);
             }
+            logger.info("Complete getting the weather advice for each day");
             return temperatureInfoList;
         }
 }
