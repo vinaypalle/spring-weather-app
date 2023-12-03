@@ -1,8 +1,11 @@
 package com.sapients.weatherprediction.controller;
 
-import com.sapients.weatherprediction.model.TemperatureInfo;
+import com.sapients.weatherprediction.model.WeatherAdviceResponse;
 import com.sapients.weatherprediction.model.WeatherPredictorResponse;
 import com.sapients.weatherprediction.service.WeatherService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,14 +23,22 @@ public class WeatherController {
     @Autowired
     private WeatherService weatherService;
     @GetMapping("/data")
+    @Operation(summary = "Get Weather info")
+    @ApiResponses(value={
+            @ApiResponse(responseCode = "200",description = "Successful operation"),
+            @ApiResponse(responseCode = "401",description = "Unauthorized"),
+            @ApiResponse(responseCode = "404",description = "City not found"),
+            @ApiResponse(responseCode = "429",description = "Too many requests"),
+            @ApiResponse(responseCode = "500",description = "Internal server error")
+    })
     public ResponseEntity<WeatherPredictorResponse> getWeatherData(@RequestParam String location, @RequestParam String cnt,@RequestHeader String appid)
     {
         logger.info("Fetching weather details of city: {}",location);
-        List<TemperatureInfo> temperatureInfoList = weatherService.findAll(location,appid,cnt);
+        List<WeatherAdviceResponse> weatherAdviceResponseList = weatherService.findAll(location,appid,cnt);
         WeatherPredictorResponse weatherPredictorResponse = new WeatherPredictorResponse();
         weatherPredictorResponse.setStatus(HttpStatus.OK.value());
-        weatherPredictorResponse.setData(temperatureInfoList);
-        logger.info("Finished fetching weather data");
+        weatherPredictorResponse.setData(weatherAdviceResponseList);
+        logger.info("Finished fetching weather details of city: {}",location);
         return new ResponseEntity<>(weatherPredictorResponse,HttpStatus.OK);
     }
 }

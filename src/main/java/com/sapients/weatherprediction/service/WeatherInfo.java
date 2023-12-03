@@ -1,7 +1,7 @@
 package com.sapients.weatherprediction.service;
 
-import com.sapients.weatherprediction.model.TemperatureInfo;
 import com.sapients.weatherprediction.model.WeatherAdvice;
+import com.sapients.weatherprediction.model.WeatherAdviceResponse;
 import com.sapients.weatherprediction.model.WeatherData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,9 +12,9 @@ public class WeatherInfo implements WeatherInfoInterface {
 
     private static Logger logger = LoggerFactory.getLogger(WeatherInfo.class);
     @Override
-        public List<TemperatureInfo> findWeatherInfo(Map<String, List<WeatherData>> weatherMap)
+        public List<WeatherAdviceResponse> findWeatherInfo(Map<String, List<WeatherData>> weatherMap)
         {
-            List<TemperatureInfo> temperatureInfoList = new ArrayList<>();
+            List<WeatherAdviceResponse> temperatureInfoList = new ArrayList<>();
             logger.info("Preparing weather advice for each day");
             for(Map.Entry<String, List<WeatherData>> entry:weatherMap.entrySet())
             {
@@ -47,12 +47,12 @@ public class WeatherInfo implements WeatherInfoInterface {
                         weatherAdviceList.add(weatherAdviceInterface.setWeatherAdvice(curr.getDtTxt().substring(11,19)));
                     }
                 }
-                TemperatureInfo temperatureInfo = new TemperatureInfo();
-                temperatureInfo.setMinTemp(minTemp);
-                temperatureInfo.setMaxTemp(maxTemp);
-                temperatureInfo.setWeatherAdvice(weatherAdviceList);
-                temperatureInfo.setDate(entry.getKey());
-                temperatureInfoList.add(temperatureInfo);
+                WeatherAdviceResponse weatherAdviceResponse = new WeatherAdviceResponse();
+                weatherAdviceResponse.setMinTemp(minTemp);
+                weatherAdviceResponse.setMaxTemp(maxTemp);
+                weatherAdviceResponse.setWeatherAdvice(weatherAdviceList);
+                weatherAdviceResponse.setDate(entry.getKey());
+                temperatureInfoList.add(weatherAdviceResponse);
             }
             logger.info("Finished getting the weather advice for each day");
             return temperatureInfoList;

@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TemperatureInfo {
+public class WeatherAdviceResponse {
 
     private double minTemp;
     private double maxTemp;

@@ -12,5 +12,5 @@ import java.util.List;
 public class WeatherPredictorResponse {
 
     private int status;
-    private List<TemperatureInfo> data;
+    private List<WeatherAdviceResponse> data;
 }

@@ -4,7 +4,7 @@ import com.sapients.weatherprediction.exception.ApiKeyException;
 import com.sapients.weatherprediction.exception.CityNotFoundException;
 import com.sapients.weatherprediction.exception.ServerException;
 import com.sapients.weatherprediction.exception.TooManyRequestsException;
-import com.sapients.weatherprediction.model.TemperatureInfo;
+import com.sapients.weatherprediction.model.WeatherAdviceResponse;
 import com.sapients.weatherprediction.model.WeatherApiResponse;
 import com.sapients.weatherprediction.model.WeatherData;
 import org.slf4j.Logger;
@@ -32,7 +32,7 @@ public class WeatherService {
     private String buildApiUrl(String location,String appid,String cnt) {
         return baseUri + "?q={location}&appid={appid}&cnt={cnt}";
     }
-    public List<TemperatureInfo> findAll(String location, String appid, String cnt) throws RestClientException
+    public List<WeatherAdviceResponse> findAll(String location, String appid, String cnt) throws RestClientException
     {
         logger.info("building api url");
         String uri = buildApiUrl(location,appid,cnt);
@@ -83,7 +83,7 @@ public class WeatherService {
 
         WeatherInfoInterface weatherInfo = new WeatherInfo();
         logger.info("Initializing weatherinfo model");
-        List<TemperatureInfo> weatherInfoList = weatherInfo.findWeatherInfo(weatherMap);
+        List<WeatherAdviceResponse> weatherInfoList = weatherInfo.findWeatherInfo(weatherMap);
         logger.info("Finished mapping weatherinfo");
         return weatherInfoList;
     }
