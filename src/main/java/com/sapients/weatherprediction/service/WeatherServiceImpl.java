@@ -17,9 +17,11 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @Service
@@ -79,7 +81,8 @@ public class WeatherServiceImpl implements WeatherServiceInterface{
             throw new ServerException(exception.getMessage());
         }
         WeatherApiResponse weatherApiResponse = response.getBody();
-        Map<String, List<WeatherData>> weatherMap = weatherApiResponse.getList().stream().collect(Collectors.groupingBy(weatherData->weatherData.getDtTxt().substring(0,10)));
+        String currentDate = LocalDate.now().toString();
+        Map<String, List<WeatherData>> weatherMap = weatherApiResponse.getList().stream().filter(weatherData -> !weatherData.getDtTxt().substring(0,10).equals(currentDate)).collect(Collectors.groupingBy(weatherData->weatherData.getDtTxt().substring(0,10), TreeMap::new,Collectors.toList()));
 
         WeatherInfoInterface weatherInfo = new WeatherInfo();
         logger.info("Routing to find weatherinfo for each day");

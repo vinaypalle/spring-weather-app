@@ -28,13 +28,7 @@ public class WeatherController {
     }
     @GetMapping("/data")
     @Operation(summary = "Get Weather info")
-    @ApiResponses(value={
-            @ApiResponse(responseCode = "200",description = "Successful operation"),
-            @ApiResponse(responseCode = "401",description = "Unauthorized"),
-            @ApiResponse(responseCode = "404",description = "City not found"),
-            @ApiResponse(responseCode = "429",description = "Too many requests"),
-            @ApiResponse(responseCode = "500",description = "Internal server error")
-    })
+    @ApiResponse(responseCode = "200",description = "Successful operation")
     public ResponseEntity<WeatherPredictorResponse> getWeatherData(@RequestParam String location, @RequestParam String cnt,@RequestHeader String appid)
     {
         logger.info("Fetching weather details of city: {}",location);
