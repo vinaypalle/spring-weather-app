@@ -24,22 +24,25 @@ DevOps: Github Actions, Docker
 ## Run Locally
 
 ### Linux
-
+```bash
 docker pull pvkr/spring-weather-prediction:latest
+```
+
 ### Windows & Mac
 
-Clone the project
-
+- Clone the project
+```bash
 git clone https://link-to-project
+```
 
-Go to the project directory
-
+- Go to the project directory
+```bash
 cd my-project
-
-Start the server
-
+```
+- Start the server
+```bash
 mvn clean install run
-
+```
 Note: Make sure the target system has maven or supported IDE installed
 ## Functionality
 
@@ -70,6 +73,7 @@ Note: Make sure the target system has maven or supported IDE installed
 - Swagger API: Employs Swagger to automatically generate API documentation, ensuring clarity and ease of understanding the available endpoints and functionalities.
 
   [Documentation](/assets/api-documentation.pdf)
+
 ## Usage/Examples
 weather/data?location=London&cnt=30
 
