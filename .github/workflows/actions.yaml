@@ -39,6 +39,7 @@ jobs:
         run: |
           docker build -t pvkr/spring-weather-prediction:${{github.ref_name}}-${{github.sha}} -t pvkr/spring-weather-prediction:latest .
           docker push pvkr/spring-weather-prediction:${{github.ref_name}}-${{github.sha}}
+          docker push pvkr/spring-weather-prediction:latest
 
 #      - name: Build and push
 #        uses: docker/build-push-action@v5
