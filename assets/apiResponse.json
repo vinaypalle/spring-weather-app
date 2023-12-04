@@ -2,8 +2,8 @@
   "status": 200,
   "data": [
     {
-      "minTemp": 277.52,
-      "maxTemp": 279.16,
+      "minTemp": 278.22,
+      "maxTemp": 279.48,
       "weatherAdvice": [
         {
           "info": "Carry an umbrella",
@@ -12,6 +12,10 @@
         {
           "info": "It's too windy, watch out!",
           "time": "00:00:00"
+        },
+        {
+          "info": "Carry an umbrella",
+          "time": "03:00:00"
         },
         {
           "info": "It's too windy, watch out!",
@@ -32,10 +36,6 @@
         {
           "info": "It's too windy, watch out!",
           "time": "09:00:00"
-        },
-        {
-          "info": "Carry an umbrella",
-          "time": "12:00:00"
         },
         {
           "info": "It's too windy, watch out!",
@@ -61,8 +61,8 @@
       "date": "2023-12-05"
     },
     {
-      "minTemp": 275.79,
-      "maxTemp": 278.18,
+      "minTemp": 275.71,
+      "maxTemp": 278.24,
       "weatherAdvice": [
         {
           "info": "It's too windy, watch out!",
@@ -100,8 +100,8 @@
       "date": "2023-12-06"
     },
     {
-      "minTemp": 279.2,
-      "maxTemp": 279.88,
+      "minTemp": 279.36,
+      "maxTemp": 282.5,
       "weatherAdvice": [
         {
           "info": "It's too windy, watch out!",
@@ -112,10 +112,6 @@
           "time": "03:00:00"
         },
         {
-          "info": "Carry an umbrella",
-          "time": "06:00:00"
-        },
-        {
           "info": "It's too windy, watch out!",
           "time": "06:00:00"
         },
@@ -124,10 +120,6 @@
           "time": "09:00:00"
         },
         {
-          "info": "Carry an umbrella",
-          "time": "12:00:00"
-        },
-        {
           "info": "It's too windy, watch out!",
           "time": "12:00:00"
         },
@@ -138,6 +130,18 @@
         {
           "info": "It's too windy, watch out!",
           "time": "15:00:00"
+        },
+        {
+          "info": "Carry an umbrella",
+          "time": "18:00:00"
+        },
+        {
+          "info": "It's too windy, watch out!",
+          "time": "18:00:00"
+        },
+        {
+          "info": "It's too windy, watch out!",
+          "time": "21:00:00"
         }
       ],
       "date": "2023-12-07"

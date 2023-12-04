@@ -37,7 +37,7 @@ jobs:
 
       - name: Docker Build and Push to DockerHub
         run: |
-          docker build -t pvkr/spring-weather-prediction:${{github.ref_name}}-${{github.sha}} .
+          docker build -t pvkr/spring-weather-prediction:${{github.ref_name}}-${{github.sha}} -t pvkr/spring-weather-prediction:latest .
           docker push pvkr/spring-weather-prediction:${{github.ref_name}}-${{github.sha}}
 
 #      - name: Build and push
