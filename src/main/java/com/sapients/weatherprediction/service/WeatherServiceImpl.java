@@ -23,16 +23,16 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class WeatherService {
+public class WeatherServiceImpl implements WeatherServiceInterface{
 
     @Value("${uri}")
     private String baseUri;
 
-    private static Logger logger = LoggerFactory.getLogger(WeatherService.class);
+    private static Logger logger = LoggerFactory.getLogger(WeatherServiceImpl.class);
     private String buildApiUrl(String location,String appid,String cnt) {
         return baseUri + "?q={location}&appid={appid}&cnt={cnt}";
     }
-    public List<WeatherAdviceResponse> findAll(String location, String appid, String cnt) throws RestClientException
+    public List<WeatherAdviceResponse> fetchWeatherInfo(String location, String appid, String cnt) throws RestClientException
     {
         logger.info("building api url");
         String uri = buildApiUrl(location,appid,cnt);
@@ -55,36 +55,35 @@ public class WeatherService {
         {
             if(exception.getStatusCode() == HttpStatus.UNAUTHORIZED)
             {
-                logger.error("Unauthorized exception");
+                logger.error("Unauthorized exception : {}", exception.getMessage());
                 throw new ApiKeyException(exception.getMessage());
             }
             else if(exception.getStatusCode() == HttpStatus.NOT_FOUND)
             {
-                logger.error("City not found exception");
+                logger.error("City not found exception : {}",exception.getMessage());
                 throw new CityNotFoundException(exception.getMessage());
             }
             else if(exception.getStatusCode() == HttpStatus.TOO_MANY_REQUESTS)
             {
-                logger.error("Too many requests exception");
+                logger.error("Too many requests exception : {}",exception.getMessage());
                 throw new TooManyRequestsException(exception.getMessage());
             }
             else {
-                logger.error("Unexpected error found");
+                logger.error("Unexpected error found : {}",exception.getMessage());
                 throw new RuntimeException();
             }
         }
         catch(HttpServerErrorException exception)
         {
-            logger.error("Server side exception");
+            logger.error("Server side exception : {}",exception.getMessage());
             throw new ServerException(exception.getMessage());
         }
         WeatherApiResponse weatherApiResponse = response.getBody();
         Map<String, List<WeatherData>> weatherMap = weatherApiResponse.getList().stream().collect(Collectors.groupingBy(weatherData->weatherData.getDtTxt().substring(0,10)));
 
         WeatherInfoInterface weatherInfo = new WeatherInfo();
-        logger.info("Initializing weatherinfo model");
+        logger.info("Routing to find weatherinfo for each day");
         List<WeatherAdviceResponse> weatherInfoList = weatherInfo.findWeatherInfo(weatherMap);
-        logger.info("Finished mapping weatherinfo");
         return weatherInfoList;
     }
 }

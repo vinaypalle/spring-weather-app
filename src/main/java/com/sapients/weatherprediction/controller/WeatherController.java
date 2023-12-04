@@ -2,7 +2,7 @@ package com.sapients.weatherprediction.controller;
 
 import com.sapients.weatherprediction.model.WeatherAdviceResponse;
 import com.sapients.weatherprediction.model.WeatherPredictorResponse;
-import com.sapients.weatherprediction.service.WeatherService;
+import com.sapients.weatherprediction.service.WeatherServiceInterface;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -20,8 +20,12 @@ import java.util.List;
 public class WeatherController {
 
     private static Logger logger = LoggerFactory.getLogger(WeatherController.class);
+    private WeatherServiceInterface weatherService;
     @Autowired
-    private WeatherService weatherService;
+    public WeatherController(WeatherServiceInterface weatherService)
+    {
+        this.weatherService = weatherService;
+    }
     @GetMapping("/data")
     @Operation(summary = "Get Weather info")
     @ApiResponses(value={
@@ -34,7 +38,7 @@ public class WeatherController {
     public ResponseEntity<WeatherPredictorResponse> getWeatherData(@RequestParam String location, @RequestParam String cnt,@RequestHeader String appid)
     {
         logger.info("Fetching weather details of city: {}",location);
-        List<WeatherAdviceResponse> weatherAdviceResponseList = weatherService.findAll(location,appid,cnt);
+        List<WeatherAdviceResponse> weatherAdviceResponseList = weatherService.fetchWeatherInfo(location,appid,cnt);
         WeatherPredictorResponse weatherPredictorResponse = new WeatherPredictorResponse();
         weatherPredictorResponse.setStatus(HttpStatus.OK.value());
         weatherPredictorResponse.setData(weatherAdviceResponseList);
